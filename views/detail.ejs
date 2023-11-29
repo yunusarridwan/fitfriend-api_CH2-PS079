@@ -1,0 +1,34 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Detail User</h2>
+            <% if (!user) { %>
+                <div class="alert alert-danger fw-bold" role="alert">
+                    Data contact not found <br>
+                    <a href="/" class="alert-link fw-light"> &laquo; kembali ke daftar user</a>
+                </div>
+                <% } else{%>
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= user.name %>
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">
+                                <%= user.uid %>
+                            </h6>
+                            <p class="card-text">Email: <%= user.email %></p>
+                            <p class="card-text">Height: <%= user.data.height %></p>
+                            <p class="card-text">Weight: <%= user.data.weight %></p>
+                            <a href="/user/<%= user.uid %>/edit" class="btn btn-info badge">Ubah</a>
+                            <form action="/user/<%= user.uid %>?_method=DELETE" method="POST" class="d-inline">
+                                <input type="hidden" name="nama" value="<%= user.name %>">
+                                <button type="submit" class="btn btn-danger badge"
+                                    onclick="return confirm('Yakin ingin menghapus data?')">hapus</button>
+                            </form>
+                            <a href="/user/<%= user.uid %>" class="card-link d-block mt-3">&laquo; Kembali</a>
+                        </div>
+                    </div>
+                <% } %>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Ubah data form user</h2>
+
+            <% if (typeof errors !=='undefined' ) { %>
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        <% errors.forEach(error=> { %>
+                            <li>
+                                <%= error.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                </div>
+                <% } %>
+
+                    <form method="POST" action="/user/:uid?_method=PUT">
+                        <input type="hidden" name="_id" value="<%= user._id %>">
+                        <input type="hidden" name="oldName" value="<%= user.oldName || user.name %>">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="<%= user.name %>"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                value="<%= user.email %>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="height" class="form-label">Height</label>
+                            <input type="text" class="form-control" id="height" name="height"
+                                value="<%= user.data.height %>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="weight" class="form-label">Weight</label>
+                            <input type="text" class="form-control" id="weight" name="weight" 
+                                value="<%= user.data.weight %>" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ubah data user</button>
+                    </form>
+        </div>
+    </div>
+</div>

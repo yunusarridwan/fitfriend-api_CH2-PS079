@@ -1,0 +1,29 @@
+// get env data
+require('dotenv').config();
+
+// create connection to mongodb
+require('../model-db/db');
+
+// get model-db
+const User = require('../model-db/model');
+
+const saveDataUser = async (req, res, next) => {
+	// get data collection
+	const { uid, name, email } = req.user;
+
+	// process input data
+	try {
+		// check existing user with uid
+		const existingUser = await User.findOne({ uid });
+		if (!existingUser) {
+			const newUser = new User({ uid, name, email });
+			await newUser.save();
+		}
+		next();
+	} catch (error) {
+		console.error('Error saving user to MongoDB:', error.message);
+		res.status(500).send('Internal Server Error');
+	}
+};
+
+module.exports = saveDataUser;

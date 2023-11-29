@@ -1,0 +1,46 @@
+<!-- index.ejs -->
+<h1>Welcome to fitfriend API</h1>
+<div id="firebaseui-auth-container"></div>
+<script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js';
+    // firebase keys
+    const firebaseConfig = {
+        apiKey: "AIzaSyDm2v_GBNazW6uVkrwVIVUOhN9V8eSQsoY",
+        authDomain: "loginnew-26332.firebaseapp.com",
+        projectId: "loginnew-26332",
+        storageBucket: "loginnew-26332.appspot.com",
+        messagingSenderId: "358554464551",
+        appId: "1:358554464551:web:65939121a93e980c473902",
+        measurementId: "G-BWNRVQ23LB"
+    };
+    firebase.initializeApp(firebaseConfig);
+    //set firebase auth
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+    // FirebaseUI config.
+    const uiConfig = {
+        signInOptions: [
+            // Leave the lines as is for the providers you want to offer your users.
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        ],
+        
+        //callbacks
+        callbacks: {
+            signInSuccess: function (user, credential, redirectUrl) {
+                //get user token if user is available
+                firebase.auth().onAuthStateChanged(function (user) {
+                    if (user) {
+                        user.getIdToken(true).then(function (data) {
+                            document.cookie = 'session=data';
+                            window.location.href = '/savecookie?id=' + data;
+                        });
+                    }
+                });
+            },
+        },
+    };
+
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);   
+</script>
