@@ -9,14 +9,14 @@ const User = require('../model-db/model');
 
 const saveDataUser = async (req, res, next) => {
 	// get data collection
-	const { uid, name, email } = req.user;
+	const { uid, email, name } = req.user;
 
 	// process input data
 	try {
 		// check existing user with uid
 		const existingUser = await User.findOne({ uid });
 		if (!existingUser) {
-			const newUser = new User({ uid, name, email });
+			const newUser = new User({ uid, email, name });
 			await newUser.save();
 		}
 		next();
