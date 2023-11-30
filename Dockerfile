@@ -1,16 +1,11 @@
-FROM node:18
+FROM node:18-slim
 
-# Copy package.json and package-lock.json
+WORKDIR /app
+
 COPY package*.json ./
 
-# Install npm production packages 
-RUN npm install --production
+RUN npm install --only=production
 
-COPY . .
+COPY . ./
 
-ENV NODE_ENV production
-ENV PORT 3000
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
+CMD [ "node", "app.js" ]
