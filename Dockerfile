@@ -6,7 +6,7 @@ COPY package*.json ./
 # Install npm production packages 
 RUN npm install --production
 
-COPY . /opt/app-root/src
+COPY . .
 
 ENV NODE_ENV production
 ENV PORT 3000
