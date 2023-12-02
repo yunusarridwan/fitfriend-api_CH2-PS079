@@ -25,7 +25,7 @@ require('./model-db/db');
 const User = require('./model-db/model');
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 
 // setup method override
 app.use(methodOverride('_method'));
