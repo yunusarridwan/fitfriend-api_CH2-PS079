@@ -77,13 +77,6 @@ app.get('/user/:uid', checkAuthUser, saveDataUser, async (req, res) => {
 	});
 });
 
-// User delete data
-app.delete('/user/:uid', (req, res) => {
-	User.deleteOne({ uid: req.body.uid }).then((result) => {
-		req.flash('msg', 'Data user berhasil dihapus');
-		res.redirect('/');
-	});
-});
 
 // User edit data
 app.get('/user/:uid/edit', async (req, res) => {
